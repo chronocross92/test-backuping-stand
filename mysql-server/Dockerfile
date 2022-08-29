@@ -34,8 +34,17 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 RUN wget https://github.com/restic/restic/releases/download/v0.13.1/restic_0.13.1_linux_amd64.bz2 \
         -O /tmp/restic_0.13.1_linux_amd64.bz2 \
     && bzip2 -d /tmp/restic_0.13.1_linux_amd64.bz2 \
-    && chmod +x /tmp/restic_0.13.1_linux_amd64 \
-    && mv /tmp/restic_0.13.1_linux_amd64 /usr/local/bin
+    && mv /tmp/restic_0.13.1_linux_amd64 /usr/local/bin/restic \
+    && chmod +x /usr/local/bin/restic
+
+# Install xtrabackup
+RUN wget https://downloads.percona.com/downloads/Percona-XtraBackup-2.4/Percona-XtraBackup-2.4.26/binary/tarball/percona-xtrabackup-2.4.26-Linux-x86_64.glibc2.12-minimal.tar.gz \
+        -O /tmp/percona-xtrabackup-2.4.26-Linux-x86_64.glibc2.12-minimal.tar.gz \
+    && tar -xzf /tmp/percona-xtrabackup-2.4.26-Linux-x86_64.glibc2.12-minimal.tar.gz \
+        --strip-components 1 -C /tmp/ \
+    && mv /tmp/bin/xtrabackup /usr/local/bin \
+    && chmod +x /usr/local/bin/xtrabackup \
+    && rm -rf /tmp/*
 
 # Install mysqld
 RUN useradd mysql -M \
