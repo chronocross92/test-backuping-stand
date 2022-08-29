@@ -18,8 +18,8 @@ default-time-zone = +03:00
 
 thread_handling = one-thread-per-connection
 
-read_only = ON
-super_read_only = ON
+read_only = OFF
+super_read_only = OFF
 
 performance_schema = ON
 #query_response_time_stats = ON
@@ -47,10 +47,6 @@ max_binlog_size = 512M
 sync_binlog = 0
 
 # Skip databases replication
-replicate-ignore-db = gateway
-replicate-ignore-db = google
-replicate-ignore-db = sysbench
-replicate-ignore-db = biz_erp_analytics
 
 # Timeouts
 wait_timeout = 604800
