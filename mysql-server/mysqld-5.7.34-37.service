@@ -1,0 +1,19 @@
+[Unit]
+Description=Percona Server 5.7.34-37
+After=network.target
+Wants=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+User=mysql
+Group=mysql
+PermissionsStartOnly=true
+Environment=LD_PRELOAD=/opt/lib/percona/5.7.34-37/lib/mysql/libjemalloc.so.1
+ExecStart=/opt/lib/percona/5.7.34-37/bin/mysqld --defaults-file=/opt/conf/percona/5.7.34-37/mysqld.cnf --daemonize --pid-file=/opt/lib/percona/5.7.34-37/mysqld.pid $MYSQLD_OPTS
+TimeoutSec=0
+Restart=on-failure
+RestartSec=60
+RestartPreventExitStatus=1
