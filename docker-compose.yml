@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  rest-rerver:
+    container_name: rest-server
+    hostname: rest-server
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    build: ./rest-server
+    ports:
+      - 80:80
+
+  mysql-server:
+    container_name: mysql-server
+    hostname: mysql-server
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    build: ./mysql-server
+    ports:
+      - 3306:3306
