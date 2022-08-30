@@ -43,7 +43,11 @@ RUN wget https://downloads.percona.com/downloads/Percona-XtraBackup-2.4/Percona-
     && tar -xzf /tmp/percona-xtrabackup-2.4.26-Linux-x86_64.glibc2.12-minimal.tar.gz \
         --strip-components 1 -C /tmp/ \
     && mv /tmp/bin/xtrabackup /usr/local/bin \
+    && mv /tmp/lib/private/* /lib/x86_64-linux-gnu/ \
     && chmod +x /usr/local/bin/xtrabackup \
+    && wget https://repo.percona.com/percona/apt/pool/main/q/qpress/qpress_11-1.focal_amd64.deb \
+        -O /tmp/qpress_11-1.focal_amd64.deb \
+    && dpkg -i /tmp/qpress_11-1.focal_amd64.deb \
     && rm -rf /tmp/*
 
 # Install mysqld
